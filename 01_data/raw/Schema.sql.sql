@@ -131,4 +131,37 @@ CREATE TABLE `fact_campaigns` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
+CREATE TABLE Fact_Campaigns AS
+SELECT
+  c.Campaign_ID,
+  c.Company,
+  s.Setup_ID,
+  a.Audience_ID,
+  g.Geography_ID,
+  c.Conversion_Rate,
+  c.Acquisition_Cost,
+  c.ROI,
+  c.Clicks,
+  c.Impressions,
+  c.Engagement_Score,
+  c.Date,
+  c.ROI_Category,
+  c.Cost_Per_Click,
+  c.Click_Through_Rate,
+  c.Total_Revenue_Generated,
+  c.Campaign_Month,
+  c.Campaign_Year
+FROM campaigns c
+JOIN Dim_Campaign_Setup s
+  ON c.Campaign_Type = s.Campaign_Type
+  AND c.Channel_Used = s.Channel_Used
+  AND c.Duration = s.Duration
+JOIN Dim_Audience a
+  ON c.Target_Audience = a.Target_Audience
+  AND c.Customer_Segment = a.Customer_Segment
+JOIN Dim_Geography g
+  ON c.Location = g.Location
+  AND c.Language = g.Language;
+  
+
 -- Dump completed on 2026-06-25 11:47:18
